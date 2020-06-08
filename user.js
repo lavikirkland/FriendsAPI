@@ -91,6 +91,21 @@ class User {
       result(null, res);
     });
   }
+
+  // get user info
+  getUsers(id, result) {
+    sql.query(`SELECT id, lastname, firstname, username, email FROM Users WHERE id IN (${id})`, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+
+      console.log(`Found ${res.length} User!`);//, JSON.stringify(res, null, 2));
+      result(null, res);
+    });
+  }
+
 }
 
 module.exports = User;

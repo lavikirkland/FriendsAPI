@@ -41,6 +41,9 @@ CREATE TABLE `Relations` (
 );
 ALTER TABLE Relations ADD PRIMARY KEY (followerid,followedid);
 
+INSERT IGNORE INTO `Relations` (`followerid`,`followedid`) VALUES (1,67),(1,62),(1,96),(1,81),(1,7),(1,79),(1,44),(1,41),(1,9),(1,3);
+INSERT IGNORE INTO `Relations` (`followerid`,`followedid`) VALUES (1,31),(1,93),(1,71),(1,46),(1,72),(1,45),(1,98),(1,38),(1,18),(1,4);
+
 SHOW tables;
 SHOW COLUMNS FROM Users;
 SHOW COLUMNS FROM Relations;
@@ -49,16 +52,22 @@ SHOW COLUMNS FROM Relations;
 {
 	"follower": {
 		"id": 2,
-		"lastname": "",
-        "firstname": "",
-        "username": "",
-        "email": ""
+		"lastname": "Lara",
+        "firstname": "Owen",
+        "username": "interdum",
+        "email": "neque.Nullam@felis.org"
 	},
 	"followed": {
 		"id": 4,
-		"lastname": "",
-        "firstname": "",
-        "username": "",
-        "email": ""
+		"lastname": "Massey",
+        "firstname": "Rashad",
+        "username": "amet",
+        "email": "auctor@consectetueripsum.edu"
 	}
 }
+
+## Pagination  
+Offset
+Keyset
+Seek
+

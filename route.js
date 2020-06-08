@@ -1,23 +1,6 @@
 const User = require("./user.js");
 const sql = require('./db.js');
 
-// getUser = (id) => {
-//     //return 
-//     var user = sql.querySync(`SELECT id, lastname, firstname, username, email FROM Users WHERE id = ${id}`).fetchAllSync();
-//     // , (err, res) => {
-//     //     if (err) {
-//     //         console.log("error: ", err);
-//     //         //result(err, null);
-//     //         return;
-//     //     }
-
-//     //     console.log(`Found User ${id}:`, JSON.stringify(res[0], null, 2));
-//     //     //var user = new User(res[0]);
-//     //     //result(null, user);
-//     // });
-//     console.log(user);
-// };
-
 follow = (req, res) => {
     // Validate request
     if (!req.body) {
@@ -68,11 +51,20 @@ unfollow = (req, res) => {
 };
 
 getFollow = (req, res) => {
+    var start = 0;
+    var lim = false;
+    var end = 0;
+    // limit hardcoded to 20
+    const page = 20;
+    
+    if (req.query.limit) {
+        lim = true;
+        if (req.query.after_id) start = req.query.after_id;
+        //console.log(lim, start, req.query.after_id);
+    }
+
     if (req.query.followedid) {
         console.log(`get followers of User ${req.query.followedid}`);
-        //console.log(getUser(req.query.followedid));
-        //var user = getUser(req.query.followedid);
-
         const user = new User({
             "id": req.query.followedid,
             "lastname": "",
@@ -83,14 +75,26 @@ getFollow = (req, res) => {
 
         // get a User followers
         user.getFollower((err, data) => {
-            if (err)
-            res.status(500).send({
-                message:
-                err.message || "Some error occurred while getting a user followers."
-            });
-            else res.send(data);
+            if (err || data.length <= start){
+                res.status(500).send({
+                    message: "Some error occurred while getting a user followers."//|| err.message 
+                });                
+            } else {
+                var list = [];
+                if (lim) end = (data.length >= page + start)? page + start:data.length;
+                else end = data.length;
+                for (var i = start; i < end; i++) list.push(data[i].followerid);
+                console.log(`Displayed ${end - start} Users: ${list.toString()}`);
+                user.getUsers(list.toString(), (err, info) => {
+                    res.send(info);
+                });
+                // for (i of data) list.push(i.followerid);
+                // console.log(list.toString());
+                // user.getUsers(list.toString(), (err, info) => {
+                //     res.send(info);
+                // });
+            }
         });
-      
     } else if (req.query.followerid) {
         console.log(`get followings of User ${req.query.followerid}`);
         const user = new User({
@@ -100,16 +104,30 @@ getFollow = (req, res) => {
             "username": "",
             "email": ""
         });
-        //var user = getUser(req.query.followedid);
 
         // Get a user following users
         user.getFollowing((err, data) => {
-            if (err)
-            res.status(500).send({
-                message:
-                err.message || "Some error occurred while get a user following users."
-            });
-            else res.send(data);
+            if (err || data.length <= start) {
+                res.status(500).send({
+                    message: "Some error occurred while get a user following users."//|| err.message 
+                });                
+            } else {
+                var list = [];
+                if (lim) end = (data.length >= page + start)? page + start:data.length;
+                else end = data.length;
+                for (var i = start; i < end; i++) list.push(data[i].followedid);
+                console.log(`Displayed ${end - start} Users: ${list.toString()}`);
+                user.getUsers(list.toString(), (err, info) => {
+                    res.send(info);
+                });
+
+                // var list = [];
+                // for (i of data) list.push(i.followedid);
+                // console.log(list.toString());
+                // user.getUsers(list.toString(), (err, info) => {
+                //     res.send(info);
+                // });
+            }
         });
     } else {
         res.send({message: "Invalid Query"});
