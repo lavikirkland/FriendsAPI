@@ -81,6 +81,7 @@ Keyset
 Seek -> limit + after_id  
   
 ## API test data  
+```
 req.body =  
 {  
 	"follower": {  
@@ -101,11 +102,12 @@ req.body =
   
 req.query =  
 {  
-    followerid  
-    followedid  
-    limit  
-    after_id      
+	followerid,  
+	followedid, 
+	limit,  
+	after_id      
 }  
+```  
   
 ## Docker   
 ### Containers:  
@@ -118,21 +120,21 @@ docker-compose.yml
 setup.sql
   
 ### Useful Auxiliary Command Line:  
-docker images  
-docker ps -a  
-docker system prune -a  
-docker <container> start/stop/rm  
-docker logs <container>  
-docker exec -it <container> /bin/bash  
-docker-machine ip default   
-hostname -i  
-ifconfig  
+`docker images`  
+`docker ps -a`  
+`docker system prune -a`  
+`docker <container> start/stop/rm`  
+`docker logs <container>`  
+`docker exec -it <container> /bin/bash`  
+`docker-machine ip default`   
+`hostname -i`  
+`ifconfig`  
   
 Shortcut Procedure(Not fully configured into to one auto build; needs manual data setup; need improvement):  
 `docker-compose up --build -d`  
 `docker-compose down -v`    
   
-Step-by-Step Docker Command Line Instruction:  
+###Step-by-Step Docker Command Line Instruction:  
 `docker system prune -a`  
 `docker run --name mysql -e MYSQL_ROOT_PASSWORD=123@ABcd -d mysql:5.7 // get existing mysql image and run the container`   
 `docker exec -it mysql /bin/bash // use mysql command line to set up database and import data`  
@@ -147,6 +149,6 @@ Step-by-Step Docker Command Line Instruction:
 `http://192.168.99.100:3000/relations?followerid=1&limit=true`  
 
 
-
+## References  
 https://medium.com/@joaoh82/setting-up-docker-toolbox-for-windows-home-10-and-wsl-to-work-perfectly-2fd34ed41d51  
 https://www.generatedata.com/  
