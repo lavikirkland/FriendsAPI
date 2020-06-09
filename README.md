@@ -108,15 +108,16 @@ req.query =
 }  
   
 ## Docker   
-Containers:  
+### Containers:  
 mysql: mySQL Database (pulls existing mysql/5.7 image from Docker Hub)  
 friends-api: Node.js backend app (build from Dockerfile)  
   
-Files:  
+### Files:  
 Dockerfile   
 docker-compose.yml  
+setup.sql
   
-Useful Auxiliary Command Line:  
+### Useful Auxiliary Command Line:  
 docker images  
 docker ps -a  
 docker system prune -a  
@@ -127,26 +128,25 @@ docker-machine ip default
 hostname -i  
 ifconfig  
   
-Shortcut:  
-docker-compose up --build -d  
-docker-compose down  
+Shortcut Procedure(Not fully configured into to one auto build; needs manual data setup; need improvement):  
+`docker-compose up --build -d`  
+`docker-compose down -v`    
   
 Step-by-Step Docker Command Line Instruction:  
-docker system prune -a  
-docker run --name mysql -e MYSQL_ROOT_PASSWORD=123@ABcd -d mysql:5.7 // get existing mysql image and run the container   
-docker exec -it mysql /bin/bash // use mysql command line to set up database and import data  
-mysql -V //check version  
-mysql -u root -p  
-// insert data using dummy data DDL above  
-docker build -t friends-api .   
-docker run --name friends-api --link mysql:db -e DATABASE_HOST=db -p 3000:3000 friends-api  
-// Find Docker host IP  
-docker-machine ip default   
-// testing  
-http://192.168.99.100:3000/relations?followerid=1&limit=true  
+`docker system prune -a`  
+`docker run --name mysql -e MYSQL_ROOT_PASSWORD=123@ABcd -d mysql:5.7 // get existing mysql image and run the container`   
+`docker exec -it mysql /bin/bash // use mysql command line to set up database and import data`  
+`mysql -V //check version`  
+`mysql -u root -p`  
+`// insert data using dummy data DDL above`  
+`docker build -t friends-api .`   
+`docker run --name friends-api --link mysql:db -e DATABASE_HOST=db -p 3000:3000 friends-api`  
+`// Find Docker host IP`  
+`docker-machine ip default`   
+`// testing`  
+`http://192.168.99.100:3000/relations?followerid=1&limit=true`  
 
 
 
-https://medium.com/@joaoh82/setting-up-docker-toolbox-for-windows-home-10-and-wsl-to-work-perfectly-2fd34ed41d51
-https://bezkoder.com/node-js-rest-api-express-mysql/
-https://www.generatedata.com/
+https://medium.com/@joaoh82/setting-up-docker-toolbox-for-windows-home-10-and-wsl-to-work-perfectly-2fd34ed41d51  
+https://www.generatedata.com/  
