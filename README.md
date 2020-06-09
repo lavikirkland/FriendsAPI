@@ -2,13 +2,13 @@
 Social Media Friends HTTP API Design
   
 ## Tools  
-Database: mySQL  
-Package Management Tool: npm  
-Framework: Node.js + Express  
-Language: Javascript  
+**Database:** mySQL 5.7  
+**Package Management Tool:** npm  
+**Framework:** Node.js + Express  
+**Language:** Javascript  
 Docker Toolbox with Windows 10 Home  
-Endpoint Testing: Postman + curl  
-Editor/Environment: VSCode + WSL1 with Ubuntu 18.04  
+**Endpoint Testing:** Postman + curl  
+**Editor/Environment:** VSCode + WSL1 with Ubuntu 18.04  
   
 ## Setup  
 Database:   
@@ -19,8 +19,6 @@ Database:
 `npm install`    
   
 ## Database Design    
-mySQL    
-  
 testdb  
   - Users table (Primary Key(id))  
   - Relations table (Primary Key(followerid, followedid))  
@@ -134,7 +132,7 @@ Shortcut Procedure(Not fully configured into to one auto build; needs manual dat
 `docker-compose up --build -d`  
 `docker-compose down -v`    
   
-###Step-by-Step Docker Command Line Instruction:  
+### Step-by-Step Docker Command Line Instruction:  
 ```docker system prune -a  
 docker run --name mysql -e MYSQL_ROOT_PASSWORD=123@ABcd -d mysql:5.7 // get existing mysql image and run the container   
 docker exec -it mysql /bin/bash // use mysql command line to set up database and import data  
@@ -146,10 +144,11 @@ docker run --name friends-api --link mysql:db -e DATABASE_HOST=db -p 3000:3000 f
 // Find Docker host IP  
 docker-machine ip default   
 // testing  
-http://192.168.99.100:3000/relations?followerid=1&limit=true
+// Get http://192.168.99.100:3000/relations?followerid=1&limit=true
+// POST http://192.168.99.100:3000/relations
+// DELETE http://192.168.99.100:3000/relations
 ```
-
-
+  
 ## References  
 https://medium.com/@joaoh82/setting-up-docker-toolbox-for-windows-home-10-and-wsl-to-work-perfectly-2fd34ed41d51  
 https://www.generatedata.com/  
