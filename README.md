@@ -135,18 +135,19 @@ Shortcut Procedure(Not fully configured into to one auto build; needs manual dat
 `docker-compose down -v`    
   
 ###Step-by-Step Docker Command Line Instruction:  
-`docker system prune -a`  
-`docker run --name mysql -e MYSQL_ROOT_PASSWORD=123@ABcd -d mysql:5.7 // get existing mysql image and run the container`   
-`docker exec -it mysql /bin/bash // use mysql command line to set up database and import data`  
-`mysql -V //check version`  
-`mysql -u root -p`  
-`// insert data using dummy data DDL above`  
-`docker build -t friends-api .`   
-`docker run --name friends-api --link mysql:db -e DATABASE_HOST=db -p 3000:3000 friends-api`  
-`// Find Docker host IP`  
-`docker-machine ip default`   
-`// testing`  
-`http://192.168.99.100:3000/relations?followerid=1&limit=true`  
+```docker system prune -a  
+docker run --name mysql -e MYSQL_ROOT_PASSWORD=123@ABcd -d mysql:5.7 // get existing mysql image and run the container   
+docker exec -it mysql /bin/bash // use mysql command line to set up database and import data  
+mysql -V //check version  
+mysql -u root -p 
+// insert data using dummy data DDL above  
+docker build -t friends-api .   
+docker run --name friends-api --link mysql:db -e DATABASE_HOST=db -p 3000:3000 friends-api  
+// Find Docker host IP  
+docker-machine ip default   
+// testing  
+http://192.168.99.100:3000/relations?followerid=1&limit=true
+```
 
 
 ## References  
