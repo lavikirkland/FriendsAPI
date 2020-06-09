@@ -12,11 +12,11 @@ Editor/Environment: VSCode + WSL1 with Ubuntu 18.04
   
 ## Setup  
 Database:   
-sudo service mysql status  
-sudo service mysql start  
-mysql -u root -p  
-  
-npm install  
+`sudo service mysql status`    
+`sudo service mysql start`    
+`mysql -u root -p`    
+    
+`npm install`    
   
 ## Database Design    
 mySQL    
