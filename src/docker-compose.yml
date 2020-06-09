@@ -1,0 +1,57 @@
+# version: '3.7'
+# services:
+#   # api: #docker run --name friends-api --link mysql:db -e DATABASE_HOST=db -p 3000:3000 friends-api
+#   #   image: friends-api
+#   #   container_name: friends-api
+#   #   build: .
+#   #   # networks:
+#   #   #   - backend
+#   #   ports:
+#   #     - "3000:3000"
+#   #   volumes:
+#   #     - ./:/usr/src/app
+#   #   links: 
+#   #     - mysql:db
+#   #   environment:
+#   #     MYSQL_HOST: localhost
+#   #     MYSQL_USER: root
+#   #     MYSQL_PASSWORD: 123@ABcd
+#   #     MYSQL_DB: testdb
+#   #     DATABASE_HOST: db
+#   #     #APP_EXTERNAL_URL: http://localhost:3000/
+#   #   depends_on:
+#   #     - mysql
+      
+#   mysql: #docker run --name mysql -e MYSQL_ROOT_PASSWORD=123@ABcd -d mysql:5.7
+#     image: mysql:5.7
+#     container_name: mysql
+#     restart: always
+#     command: --init-file /docker-entrypoint-initdb.d/setup.sql
+#     volumes:
+#       - setup.sql:/docker-entrypoint-initdb.d/setup.sql
+#       - testdb-data:/var/lib/mysql
+#     # entrypoint:
+#     #   sh -c "
+#     #     echo 'CREATE DATABASE IF NOT EXISTS firstDB; CREATE DATABASE IF NOT EXISTS secondDB;' > /docker-entrypoint-initdb.d/init.sql;
+#     #     /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+#     #     #/data/application/init_mysql.sql
+#     # command: --default-authentication-plugin=mysql_native_password
+#     # networks:
+#     #   - backend
+#     # command: --init-file /data/application/init_mysql.sql   "
+#     environment: 
+#       # MYSQL_HOST: localhost
+#       # MYSQL_USER: root
+#       MYSQL_ROOT_PASSWORD: 123@ABcd
+#       # MYSQL_DB: testdb
+#     ports:
+#       - "3306:3306"
+
+# volumes:
+#   setup.sql:
+#   testdb-data:
+  
+
+# # networks:
+# #   backend:
+# #     driver: bridge

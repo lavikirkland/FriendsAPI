@@ -1,0 +1,28 @@
+{
+  "name": "friendsapi",
+  "version": "1.0.0",
+  "description": "Social media Friends API Design",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./app/server.js",
+    "dev": "nodemon ./app/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lavikirkland/FriendsAPI.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lavikirkland/FriendsAPI/issues"
+  },
+  "homepage": "https://github.com/lavikirkland/FriendsAPI#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "ip": "^1.1.5",
+    "mysql": "^2.18.1",
+    "wait-port": "^0.2.9"
+  }
+}

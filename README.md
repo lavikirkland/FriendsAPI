@@ -1,10 +1,30 @@
 # FriendsAPI
-Social media Friends API Design
+Social Media Friends HTTP API Design
+
+## Tools
+Database: mySQL
+Package Management Tool: npm
+Framework: Node.js + Express
+Language: Javascript
+Docker Toolbox with Windows 10 Home
+Endpoint Testing: Postman + curl
+Editor/Environment: VSCode + WSL1 with Ubuntu 18.04
+
+## Setup
+Database: 
+sudo service mysql status
+sudo service mysql start
+mysql -u root -p
+
+npm install
 
 ## Database Design  
 mySQL  
-Users table
-Relationships table
+
+testdb
+  - Users table (Primary Key(id))
+  - Relations table (Primary Key(followerid, followedid))
+
 DDL(Data Definition Language)  
 CREATE DATABASE testdb;
 USE testdb;
@@ -41,6 +61,7 @@ CREATE TABLE `Relations` (
 );
 ALTER TABLE Relations ADD PRIMARY KEY (followerid,followedid);
 
+INSERT IGNORE INTO `Relations` (`followerid`,`followedid`) VALUES (1,2),(2,3),(2,4);
 INSERT IGNORE INTO `Relations` (`followerid`,`followedid`) VALUES (1,67),(1,62),(1,96),(1,81),(1,7),(1,79),(1,44),(1,41),(1,9),(1,3);
 INSERT IGNORE INTO `Relations` (`followerid`,`followedid`) VALUES (1,31),(1,93),(1,71),(1,46),(1,72),(1,45),(1,98),(1,38),(1,18),(1,4);
 
@@ -49,25 +70,83 @@ SHOW COLUMNS FROM Users;
 SHOW COLUMNS FROM Relations;
 
 ## API Functions
-{
-	"follower": {
-		"id": 2,
-		"lastname": "Lara",
-        "firstname": "Owen",
-        "username": "interdum",
-        "email": "neque.Nullam@felis.org"
-	},
-	"followed": {
-		"id": 4,
-		"lastname": "Massey",
-        "firstname": "Rashad",
-        "username": "amet",
-        "email": "auctor@consectetueripsum.edu"
-	}
-}
+/relations 
+POST -> follow -> INSERT IGNORE
+DELETE -> unfollow -> DELETE
+GET -> getFollow -> SELECT
 
 ## Pagination  
 Offset
 Keyset
-Seek
+Seek -> limit + after_id
 
+## API test data
+req.body =
+{
+	"follower": {
+		"id": 2,
+		"lastname": "Lara",
+    "firstname": "Owen",
+    "username": "interdum",
+    "email": "neque.Nullam@felis.org"
+	},
+	"followed": {
+		"id": 4,
+		"lastname": "Massey",
+    "firstname": "Rashad",
+    "username": "amet",
+    "email": "auctor@consectetueripsum.edu"
+	}
+}
+
+req.query =
+{
+    followerid
+    followedid
+    limit
+    after_id    
+}
+
+## Docker 
+Containers:
+mysql: mySQL Database (pulls existing mysql/5.7 image from Docker Hub)
+friends-api: Node.js backend app (build from Dockerfile)
+
+Files:
+Dockerfile
+docker-compose.yml
+
+Useful Auxiliary Command Line:
+docker images
+docker ps -a
+docker system prune -a
+docker <container> start/stop/rm
+docker logs <container>
+docker exec -it <container> /bin/bash
+docker-machine ip default 
+hostname -i
+ifconfig
+
+Shortcut:
+docker-compose up --build -d
+docker-compose down
+
+Step-by-Step Docker Command Line Instruction:
+docker system prune -a
+docker run --name mysql -e MYSQL_ROOT_PASSWORD=123@ABcd -d mysql:5.7 // get existing mysql image and run the container 
+docker exec -it mysql /bin/bash // use mysql command line to set up database and import data
+mysql -V //check version
+mysql -u root -p
+// insert data using dummy data DDL above
+docker build -t friends-api . 
+docker run --name friends-api --link mysql:db -e DATABASE_HOST=db -p 3000:3000 friends-api
+// Find Docker host IP
+docker-machine ip default 
+// testing
+http://192.168.99.100:3000/relations?followerid=1&limit=true
+
+
+
+https://medium.com/@joaoh82/setting-up-docker-toolbox-for-windows-home-10-and-wsl-to-work-perfectly-2fd34ed41d51
+https://bezkoder.com/node-js-rest-api-express-mysql/
+https://www.generatedata.com/
